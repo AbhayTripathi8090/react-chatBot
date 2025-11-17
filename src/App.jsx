@@ -7,43 +7,42 @@ function App() {
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
 
-  
   async function generateAnswer() {
-  if (!question.trim()) return;
+    if (!question.trim()) return;
 
-  setMessages((prev) => [...prev, { sender: "user", text: question }]);
-  setLoading(true);
+    setMessages((prev) => [...prev, { sender: "user", text: question }]);
+    setLoading(true);
 
-  try {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    try {
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-    const response = await axios({
-      url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-      method: "POST",
-      data: {
-        contents: [
-          {
-            parts: [{ text: question }],
-          },
-        ],
-      },
-    });
+      const response = await axios({
+        url: `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        method: "POST",
+        data: {
+          contents: [
+            {
+              parts: [{ text: question }],
+            },
+          ],
+        },
+      });
 
-    const aiResponse =
-      response.data?.candidates?.[0]?.content?.parts?.[0]?.text || "No response";
+      const aiResponse =
+        response.data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No response";
 
-    setMessages((prev) => [...prev, { sender: "ai", text: aiResponse }]);
-  } catch (error) {
-    setMessages((prev) => [
-      ...prev,
-      { sender: "ai", text: "Error fetching response." },
-    ]);
+      setMessages((prev) => [...prev, { sender: "ai", text: aiResponse }]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { sender: "ai", text: "Error fetching response." },
+      ]);
+    }
+
+    setLoading(false);
+    setQuestion("");
   }
-
-  setLoading(false);
-  setQuestion("");
-}
-
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-purple-500/30 via-blue-500/30 to-pink-500/30 p-4">
@@ -96,7 +95,6 @@ function App() {
           >
             Send
           </button>
-          
         </div>
       </div>
     </div>
