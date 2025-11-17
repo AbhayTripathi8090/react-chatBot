@@ -7,47 +7,7 @@ function App() {
   const [question, setQuestion] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // async function generateAnswer() {
-  //   if (!question.trim()) return;
-
-  //   // Add user's message
-  //   setMessages((prev) => [...prev, { sender: "user", text: question }]);
-
-  //   setLoading(true);
-
-  //   try {
-  //     const response = await axios({
-  //       url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyD1yDsDTvRgqVXo3HAXF8mw8zK78P93ET8",
-  //       method: "POST",
-  //       data: {
-  //         contents: [
-  //           {
-  //             parts: [
-  //               {
-  //                 text: question,
-  //               },
-  //             ],
-  //           },
-  //         ],
-  //       },
-  //     });
-
-  //     const aiResponse =
-  //       response.data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-  //       "No response";
-
-  //     // Add AI's response
-  //     setMessages((prev) => [...prev, { sender: "ai", text: aiResponse }]);
-  //   } catch (error) {
-  //     setMessages((prev) => [
-  //       ...prev,
-  //       { sender: "ai", text: "Error fetching response." },
-  //     ]);
-  //   }
-
-  //   setLoading(false);
-  //   setQuestion("");
-  // }
+  
   async function generateAnswer() {
   if (!question.trim()) return;
 
